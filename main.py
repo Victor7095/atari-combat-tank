@@ -22,5 +22,11 @@ screen.onkeypress(tank.second_player_walk, "Up")
 screen.onkeypress(tank.second_player_rotate_left, "Left")
 screen.onkeypress(tank.second_player_rotate_right, "Right")
 
-while True:
+
+def run():
     screen.update()
+    screen.ontimer(run, 1)
+
+
+screen.ontimer(run, 1)
+screen.mainloop()
