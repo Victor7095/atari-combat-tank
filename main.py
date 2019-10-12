@@ -1,5 +1,6 @@
 import turtle as tt
 import modules.tank as tank
+import modules.level as level
 
 screen = None
 
@@ -13,6 +14,8 @@ screen.tracer(0)
 
 tank.first_player = tank.create_player("red", -200, 0)
 tank.second_player = tank.create_player("blue", 200, 0)
+
+level.generate()
 
 screen.listen()
 screen.onkeypress(tank.first_player_walk, "w")
