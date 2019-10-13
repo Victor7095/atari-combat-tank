@@ -7,13 +7,16 @@ screen = None
 screen = tt.Screen()
 print(screen.screensize())
 screen.clear()
-screen.title("Little Breakout ")
+screen.title("Atari Combat Tank")
 screen.bgcolor("yellowgreen")
 screen.setup(720, 580)  # 720,480 antigo
 screen.tracer(0)
+screen.mode("logo")
 
-tank.first_player = tank.create_player("red", -200, 0)
-tank.second_player = tank.create_player("blue", 200, 0)
+tank.register_tank_shape(screen)
+
+tank.first_player = tank.create_player("red", -190, 0)
+tank.second_player = tank.create_player("blue", 190, 0)
 
 level.generate()
 
