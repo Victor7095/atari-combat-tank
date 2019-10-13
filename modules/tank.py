@@ -26,7 +26,8 @@ def create_player(color, x, y):
 
 
 def first_player_walk():
-    print("a")
+    player = first_player
+    player.forward(30)
 
 
 def first_player_rotate_left():
@@ -40,7 +41,8 @@ def first_player_rotate_right():
 
 
 def second_player_walk():
-    print("d")
+    player = second_player
+    player.forward(30)
 
 
 def second_player_rotate_left():
