@@ -37,7 +37,7 @@ def first_player_rotate_left():
 
 def first_player_rotate_right():
     player = first_player
-    player.left(30)
+    player.right(30)
 
 
 def second_player_walk():
