@@ -1,6 +1,7 @@
 import turtle as tt
 import modules.tank as tank
 import modules.level as level
+import modules.fire as fire
 
 screen = None
 
@@ -32,6 +33,8 @@ screen.onkeypress(tank.second_player_rotate_right, "Right")
 def run():
     screen.update()
     screen.ontimer(run, 1)
+    fire.ball(tank.second_player)
+    fire.ball(tank.first_player)
 
 
 screen.ontimer(run, 1)

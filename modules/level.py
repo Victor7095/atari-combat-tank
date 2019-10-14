@@ -12,7 +12,11 @@ def create_block(x, y):
 
 def generate():
     # manipulação do arquivo
-    file = open('level1.txt')
+
+    # file = open('level1.txt')
+    file = open(
+        '/home/williams_gomes/vscode/github/atari-combat-tank/level1.txt')
+
     lab = file.readlines()
     for i in range(len(lab)):
         lab[i] = lab[i].strip('\n')
