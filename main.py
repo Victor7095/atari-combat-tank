@@ -25,16 +25,17 @@ screen.listen()
 screen.onkeypress(tank.first_player_walk, "w")
 screen.onkeypress(tank.first_player_rotate_left, "a")
 screen.onkeypress(tank.first_player_rotate_right, "d")
+screen.onkeypress(fire.first_player_fire, "s")
+
 screen.onkeypress(tank.second_player_walk, "Up")
 screen.onkeypress(tank.second_player_rotate_left, "Left")
 screen.onkeypress(tank.second_player_rotate_right, "Right")
+screen.onkeypress(fire.second_player_fire, "Down")
 
 
 def run():
     screen.update()
     screen.ontimer(run, 1)
-    fire.ball(tank.second_player)
-    fire.ball(tank.first_player)
 
 
 screen.ontimer(run, 1)
