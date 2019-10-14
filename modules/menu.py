@@ -10,14 +10,24 @@ import turtle as tt
 def create_menu(screen, option):
     pass
 
+
+# criando tela de menu
 if __name__ == "__main__":
-    print("oi")
     screen = tt.Screen()
-    print(screen.screensize())
     screen.clear()
     screen.title("Atari Combat Tank")
     screen.bgcolor("black")
-    screen.setup(720, 580)  # 720,480 antigo
+    screen.setup(720, 580)
     screen.tracer(0)
     screen.mode("logo")
+
+    # desenhando o título
+    import turtle
+    title = turtle
+    title.setposition(0, 225)
+    title.color("yellow")
+    style = ("Fixedsys", 30, "bold")
+    title.write("ATARI COMBAT TANK", font=style, align="center")
+    title.hideturtle()
+
     screen.mainloop()
