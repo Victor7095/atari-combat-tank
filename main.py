@@ -18,7 +18,9 @@ command_history = set()
 tank.register_tank_shape(screen)
 
 tank.first_player = tank.create_player("red", -190, 0)
+fire.first_player_ball = fire.create_ball(tank.first_player)
 tank.second_player = tank.create_player("blue", 190, 0)
+fire.second_player_ball = fire.create_ball(tank.second_player)
 
 # a função agora pede o nivel que se deseja criar como argumento
 level.generate('level1.txt')
@@ -56,6 +58,8 @@ screen.onkeypress(fire.second_player_fire, "Down")
 
 def run():
     screen.update()
+    fire.move_ball(fire.first_player_ball)
+    fire.move_ball(fire.second_player_ball)
     for b in command_history:
         b()
     screen.ontimer(run, 30)
