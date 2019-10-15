@@ -19,7 +19,8 @@ tank.register_tank_shape(screen)
 tank.first_player = tank.create_player("red", -190, 0)
 tank.second_player = tank.create_player("blue", 190, 0)
 
-level.generate()
+# a função agora pede o nivel que se deseja criar como argumento
+level.generate('level1.txt')
 
 screen.listen()
 screen.onkeypress(tank.first_player_walk, "w")
