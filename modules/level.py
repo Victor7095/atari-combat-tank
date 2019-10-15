@@ -3,7 +3,7 @@ import turtle as tt
 
 def generate(file):
     # manipulação do arquivo
-    #file = ('/home/williams_gomes/vscode/github/atari-combat-tank/level1.txt')
+    file = ('/home/williams_gomes/vscode/github/atari-combat-tank/level1.txt')
     level = open(file)
     lvl = level.readlines()
     for i in range(len(lvl)):
