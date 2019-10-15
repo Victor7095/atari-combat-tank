@@ -25,6 +25,7 @@ def first_player_fire():
         ball._tracer(0)
         ball.setheading(0)
         ball.right(tank.get_tank_angle(tank.first_player))
+        ball.forward(35)
         ball.showturtle()
     return ball
 
@@ -36,6 +37,7 @@ def second_player_fire():
         ball._tracer(0)
         ball.setheading(0)
         ball.right(tank.get_tank_angle(tank.second_player))
+        ball.forward(35)
         ball.showturtle()
     return ball
 
