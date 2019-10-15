@@ -40,7 +40,9 @@ if __name__ == "__main__":
     play.hideturtle()
 
     credit = turtle
-    credit.setposition(0, 0)
+    credit_position_x = 0
+    credit_position_y = 0
+    credit.setposition(credit_position_x, credit_position_y)
     credit.color("yellow")
     style = ("Fixedsys", 20, "bold")
     credit.write("credits", font=style, align="center")
@@ -61,5 +63,36 @@ if __name__ == "__main__":
         if(exit_position_x - 40 <= a <= exit_position_x + 40 and
            exit_position_y - 40 <= b <= exit_position_y + 40):
             screen.bye()
-    screen.onscreenclick(end_game)
+
+    # lógica do credits
+
+    def credits_(a, b):
+        if(credit_position_x - 40 <= a <= credit_position_x + 40 and
+           credit_position_y - 40 <= b <= credit_position_y + 40):
+            credit.clear()
+            developers = turtle
+            developers_position_x = 0
+            developers_position_y = 70
+            credit.setposition(developers_position_x, developers_position_y)
+            credit.color("yellow")
+            style = ("Fixedsys", 30, "bold")
+            credit.write(
+                "DEVELOPERS\n\n\n", font=style, align="center")
+            credit.hideturtle()
+            names = turtle
+            names_position_x = 0
+            names_position_y = -170
+            credit.setposition(names_position_x, names_position_y)
+            credit.color("yellow")
+            style = ("Fixedsys", 25, "bold")
+            credit.write(
+                "Gabriel\n\nVanessa\n\nVictor\n\nVinicius\n\nWilliams",
+                font=style, align="center")
+            credit.hideturtle()
+
+    def call(a, b):
+        credits_(a, b)
+        end_game(a, b)
+    screen.onscreenclick(call)
+
     screen.mainloop()
