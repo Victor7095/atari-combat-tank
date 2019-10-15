@@ -7,5 +7,3 @@ def play_sound1():
 
 def play_sound2():
     os.system('aplay gotcha.wav&')
-
-

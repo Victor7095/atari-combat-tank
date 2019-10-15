@@ -1,5 +1,5 @@
 import turtle as tt
-import modules.tank as tank
+import tank
 
 
 def first_player_fire():

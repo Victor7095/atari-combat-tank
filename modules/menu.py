@@ -4,7 +4,7 @@
 # com o screen, adicionar eventos para a opção do menu e quando selecionada,\
 # muda o valor da segunda variável que armazena a resposta
 # no loop principal, a variável deve receber um valor válido
-import turtle as tt
+import turtle
 
 
 def create_menu(screen, option):
@@ -13,7 +13,7 @@ def create_menu(screen, option):
 
 # criando tela de menu
 if __name__ == "__main__":
-    screen = tt.Screen()
+    screen = turtle.Screen()
     screen.clear()
     screen.title("Atari Combat Tank")
     screen.bgcolor("black")
@@ -22,8 +22,8 @@ if __name__ == "__main__":
     screen.mode("logo")
 
     # desenhando o título
-    import turtle
-    title = turtle
+
+    title = turtle.Turtle()
     title.setposition(0, 225)
     title.color("yellow")
     style = ("Fixedsys", 30, "bold")
@@ -32,14 +32,14 @@ if __name__ == "__main__":
 
     # desenhando opções
 
-    play = turtle
+    play = turtle.Turtle()
     play.setposition(0, 50)
     play.color("yellow")
     style = ("Fixedsys", 20, "bold")
     play.write("play game", font=style, align="center")
     play.hideturtle()
 
-    credit = turtle
+    credit = turtle.Turtle()
     credit_position_x = 0
     credit_position_y = 0
     credit.setposition(credit_position_x, credit_position_y)
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     credit.write("credits", font=style, align="center")
     credit.hideturtle()
 
-    exit_game = turtle
+    exit_game = turtle.Turtle()
     exit_position_x = 0
     exit_position_y = -50
     exit_game.setposition(exit_position_x, exit_position_y)
@@ -70,7 +70,6 @@ if __name__ == "__main__":
         if(credit_position_x - 40 <= a <= credit_position_x + 40 and
            credit_position_y - 40 <= b <= credit_position_y + 40):
             credit.clear()
-            developers = turtle
             developers_position_x = 0
             developers_position_y = 70
             credit.setposition(developers_position_x, developers_position_y)
@@ -79,7 +78,6 @@ if __name__ == "__main__":
             credit.write(
                 "DEVELOPERS\n\n\n", font=style, align="center")
             credit.hideturtle()
-            names = turtle
             names_position_x = 0
             names_position_y = -170
             credit.setposition(names_position_x, names_position_y)
