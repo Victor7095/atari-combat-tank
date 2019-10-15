@@ -47,10 +47,19 @@ if __name__ == "__main__":
     credit.hideturtle()
 
     exit_game = turtle
-    exit_game.setposition(0, -50)
+    exit_position_x = 0
+    exit_position_y = -50
+    exit_game.setposition(exit_position_x, exit_position_y)
     exit_game.color("yellow")
     style = ("Fixedsys", 20, "bold")
     exit_game.write("exit", font=style, align="center")
     exit_game.hideturtle()
-    
+
+    # lógica do exit
+
+    def end_game(a, b):
+        if(exit_position_x - 40 <= a <= exit_position_x + 40 and
+           exit_position_y - 40 <= b <= exit_position_y + 40):
+            screen.bye()
+    screen.onscreenclick(end_game)
     screen.mainloop()
