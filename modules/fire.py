@@ -10,8 +10,8 @@ def create_ball(player):
     ball.hideturtle()
     ball.speed(0)
     ball.color("black")
-    ballSize = 0.3
-    ball.shapesize(ballSize, ballSize)
+    ball_size = 0.3
+    ball.shapesize(ball_size, ball_size)
     ball.penup()
     ball.goto(tank.get_tank_position(player))
     ball._tracer(0)
@@ -42,10 +42,11 @@ def second_player_fire():
     return ball
 
 
-def move_ball(player):
-    ball = player
+def move_ball(ball, player):
     if ball.isvisible() is True:
-        ball.forward(30)
+        ball.setheading(0)
+        ball.right(tank.get_tank_angle(player))
+        ball.forward(10)
 
     if ball.xcor() >= 360 or ball.xcor() <= -360 or ball.ycor() >= 290 or ball.ycor() <= -290:
         ball.hideturtle()

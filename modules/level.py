@@ -13,8 +13,12 @@ def generate(file):
     x = -350
     y = 280
 
+    navigation_mesh = []
+
     for i in range(29):
+        navigation_mesh.append([0] * 36)
         for j in range(36):
+            navigation_mesh[i][j] = int(lvl[i][j])
             if int(lvl[i][j]):
                 block = tt.Turtle()
                 block.shape("square")
@@ -27,25 +31,4 @@ def generate(file):
         x = -350
 
     level.close()
-
-
-def nav_generate(file):
-    # manipulação do arquivo
-    level = open(file)
-    nav = level.readlines()
-    for i in range(len(nav)):
-        nav[i] = nav[i].strip('\n')
-
-    # x e y baseado nas dimensões da tela
-    x = -350
-    y = 280
-    navigation_mesh = []
-
-    for i in range(58):
-        navigation_mesh.append([0] * 72)
-        for j in range(72):
-            navigation_mesh[i][j] = int(nav[i][j])
-            x += 10
-        y -= 10
-        x = -350
     return navigation_mesh
