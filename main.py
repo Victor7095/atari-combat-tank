@@ -17,13 +17,14 @@ def create_game():
     screen.setup(720, 580)  # 720,480 antigo
     screen.tracer(0)
     screen.mode("logo")
+
     tank.register_tank_shape(screen)
-    tank.first_player = tank.create_player("red", -190, 0)
+    tank.first_player = tank.create_player("red", -280, -50)
     fire.first_player_ball = fire.create_ball(tank.first_player)
-    tank.second_player = tank.create_player("blue", 190, 0)
+    tank.second_player = tank.create_player("blue", 280, -50)
     fire.second_player_ball = fire.create_ball(tank.second_player)
-    # a função agora pede o nivel que se deseja criar como argumento
     tank.navigation_map = level.generate("level1.txt")
+
     screen.listen()
     screen.onkeypress(start_first_player_walk, "w")
     screen.onkeyrelease(stop_first_player_walk, "w")
