@@ -3,26 +3,45 @@ import modules.tank as tank
 import modules.level as level
 import modules.fire as fire
 
-screen = tt.Screen()
-screen.clear()
-screen.title("Atari Combat Tank")
-screen.bgcolor("yellowgreen")
-screen.setup(720, 580)  # 720,480 antigo
-print(screen.screensize())
-screen.tracer(0)
-screen.mode("logo")
 
+screen = tt.Screen()
 command_history = set()
 
-tank.register_tank_shape(screen)
 
-tank.first_player = tank.create_player("red", -190, 0)
-fire.first_player_ball = fire.create_ball(tank.first_player)
-tank.second_player = tank.create_player("blue", 190, 0)
-fire.second_player_ball = fire.create_ball(tank.second_player)
+def create_game():
+    command_history = set()
+    print(screen.screensize())
+    screen.clear()
+    screen.title("Atari Combat Tank")
+    screen.bgcolor("yellowgreen")
+    screen.setup(720, 580)  # 720,480 antigo
+    screen.tracer(0)
+    screen.mode("logo")
+    tank.register_tank_shape(screen)
+    tank.first_player = tank.create_player("red", -190, 0)
+    fire.first_player_ball = fire.create_ball(tank.first_player)
+    tank.second_player = tank.create_player("blue", 190, 0)
+    fire.second_player_ball = fire.create_ball(tank.second_player)
+    # a função agora pede o nivel que se deseja criar como argumento
+    level.generate('level1.txt')
+    screen.listen()
+    screen.onkeypress(start_first_player_walk, "w")
+    screen.onkeyrelease(stop_first_player_walk, "w")
+    screen.onkeypress(start_first_player_rotate_left, "a")
+    screen.onkeyrelease(stop_first_player_rotate_left, "a")
+    screen.onkeypress(start_first_player_rotate_right, "d")
+    screen.onkeyrelease(stop_first_player_rotate_right, "d")
+    screen.onkeypress(fire.first_player_fire, "s")
 
-# a função agora pede o nivel que se deseja criar como argumento
-tank.navigation_map = level.generate('level1.txt')
+    screen.onkeypress(start_second_player_walk, "Up")
+    screen.onkeyrelease(stop_second_player_walk, "Up")
+    screen.onkeypress(start_second_player_rotate_left, "Left")
+    screen.onkeyrelease(stop_second_player_rotate_left, "Left")
+    screen.onkeypress(start_second_player_rotate_right, "Right")
+    screen.onkeyrelease(stop_second_player_rotate_right, "Right")
+    screen.onkeypress(fire.second_player_fire, "Down")
+
+menu.create_menu(screen)
 
 
 # Comandos primeiro jogador
@@ -75,22 +94,7 @@ def stop_second_player_rotate_right():
     command_history.discard(tank.second_player_rotate_right)
 
 
-screen.listen()
-screen.onkeypress(start_first_player_walk, "w")
-screen.onkeyrelease(stop_first_player_walk, "w")
-screen.onkeypress(start_first_player_rotate_left, "a")
-screen.onkeyrelease(stop_first_player_rotate_left, "a")
-screen.onkeypress(start_first_player_rotate_right, "d")
-screen.onkeyrelease(stop_first_player_rotate_right, "d")
-screen.onkeypress(fire.first_player_fire, "s")
 
-screen.onkeypress(start_second_player_walk, "Up")
-screen.onkeyrelease(stop_second_player_walk, "Up")
-screen.onkeypress(start_second_player_rotate_left, "Left")
-screen.onkeyrelease(stop_second_player_rotate_left, "Left")
-screen.onkeypress(start_second_player_rotate_right, "Right")
-screen.onkeyrelease(stop_second_player_rotate_right, "Right")
-screen.onkeypress(fire.second_player_fire, "Down")
 
 
 def run():
