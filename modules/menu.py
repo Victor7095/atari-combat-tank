@@ -1,29 +1,22 @@
-# função create_menu chamada na main.py
-# receber como parâmetro o screen (declarado na main) e uma variável que \
-# armazena a opção selecionada
-# com o screen, adicionar eventos para a opção do menu e quando selecionada,\
-# muda o valor da segunda variável que armazena a resposta
-# no loop principal, a variável deve receber um valor válido
 import turtle
-
-
-def create_menu(screen, option):
-    pass
-
+global jogar
+jogar = []
 
 # criando tela de menu
-if __name__ == "__main__":
-    screen = turtle.Screen()
+
+
+def create_menu(screen):
+    print("oi, meu nome é Vanessa")
+    # criando tela de menu
     screen.clear()
     screen.title("Atari Combat Tank")
     screen.bgcolor("black")
     screen.setup(720, 580)
     screen.tracer(0)
     screen.mode("logo")
-
     # desenhando o título
 
-    title = turtle.Turtle()
+    title = turtle
     title.setposition(0, 225)
     title.color("yellow")
     style = ("Fixedsys", 30, "bold")
@@ -33,7 +26,9 @@ if __name__ == "__main__":
     # desenhando opções
 
     play = turtle.Turtle()
-    play.setposition(0, 50)
+    play_position_x = 0
+    play_position_y = 50
+    play.setposition(play_position_x, play_position_y)
     play.color("yellow")
     style = ("Fixedsys", 20, "bold")
     play.write("play game", font=style, align="center")
@@ -61,18 +56,23 @@ if __name__ == "__main__":
 
     def end_game(a, b):
         if(exit_position_x - 40 <= a <= exit_position_x + 40 and
-           exit_position_y - 40 <= b <= exit_position_y + 40):
+                exit_position_y - 40 <= b <= exit_position_y + 40):
             screen.bye()
 
     # lógica do credits
 
     def credits_(a, b):
+        screen.clear()
+        screen.bgcolor("black")
         if(credit_position_x - 40 <= a <= credit_position_x + 40 and
-           credit_position_y - 40 <= b <= credit_position_y + 40):
+                credit_position_y - 40 <= b <= credit_position_y + 40):
             credit.clear()
             developers_position_x = 0
             developers_position_y = 70
-            credit.setposition(developers_position_x, developers_position_y)
+            credit.penup()
+
+            credit.setposition(developers_position_x,
+                               developers_position_y)
             credit.color("yellow")
             style = ("Fixedsys", 30, "bold")
             credit.write(
@@ -88,9 +88,13 @@ if __name__ == "__main__":
                 font=style, align="center")
             credit.hideturtle()
 
+    def play(a, b):
+        if(play_position_x - 40 <= a <= play_position_x + 40 and play_position_y - 30 <= b <= play_position_y + 30):
+            jogar.append("on")
+            print(jogar)
+
     def call(a, b):
         credits_(a, b)
         end_game(a, b)
+        play(a, b)
     screen.onscreenclick(call)
-
-    screen.mainloop()

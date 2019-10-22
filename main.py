@@ -2,7 +2,7 @@ import turtle as tt
 import modules.tank as tank
 import modules.level as level
 import modules.fire as fire
-
+import modules.menu as menu
 
 screen = tt.Screen()
 command_history = set()
@@ -23,7 +23,7 @@ def create_game():
     tank.second_player = tank.create_player("blue", 190, 0)
     fire.second_player_ball = fire.create_ball(tank.second_player)
     # a função agora pede o nivel que se deseja criar como argumento
-    level.generate('level1.txt')
+    tank.navigation_map = level.generate("level1.txt")
     screen.listen()
     screen.onkeypress(start_first_player_walk, "w")
     screen.onkeyrelease(stop_first_player_walk, "w")
@@ -40,6 +40,7 @@ def create_game():
     screen.onkeypress(start_second_player_rotate_right, "Right")
     screen.onkeyrelease(stop_second_player_rotate_right, "Right")
     screen.onkeypress(fire.second_player_fire, "Down")
+
 
 menu.create_menu(screen)
 
@@ -94,15 +95,17 @@ def stop_second_player_rotate_right():
     command_history.discard(tank.second_player_rotate_right)
 
 
-
-
-
 def run():
+    if len(menu.jogar) > 0 and menu.jogar[0] == "on":
+        create_game()
+
+        menu.jogar[0] = "jogando"
+    if len(menu.jogar) > 0 and menu.jogar[0] == "jogando":
+        fire.move_ball(fire.first_player_ball, tank.first_player)
+        fire.move_ball(fire.second_player_ball, tank.second_player)
+        for command in command_history:
+            command()
     screen.update()
-    fire.move_ball(fire.first_player_ball, tank.first_player)
-    fire.move_ball(fire.second_player_ball, tank.second_player)
-    for command in command_history:
-        command()
     screen.ontimer(run, 1)
 
 
