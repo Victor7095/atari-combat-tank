@@ -99,13 +99,21 @@ def create_random_position():
                           [i + 1, j + 1],
                           [i - 1, j],
                           [i + 1, j]]
-    print(adjacent_positions)
     adjacent_positions = [navigation_map[i][j]
                           for [i, j] in adjacent_positions]
     while any(adjacent_positions):
         i, j = randint(6, 27), randint(1, 34)
-        adjacent_positions = navigation_map[i-1:i+2][j-1: j+2]
-    return i*20-280, j*20-360
+        adjacent_positions = [[i - 1, j - 1],
+                              [i, j - 1],
+                              [i + 1, j - 1],
+                              [i - 1, j + 1],
+                              [i, j + 1],
+                              [i + 1, j + 1],
+                              [i - 1, j],
+                              [i + 1, j]]
+        adjacent_positions = [navigation_map[i][j]
+                              for [i, j] in adjacent_positions]
+    return ((28-i)*20)-280, (j*20)-350
 
 
 def die(screen, tank, ms):
@@ -114,9 +122,9 @@ def die(screen, tank, ms):
     def spin():
         tank.left(6)
         tank.ms -= 1
-        print(tank.ms)
         if tank.ms > 0:
             screen.ontimer(spin, 1)
         else:
-            tank.goto(create_random_position())
+            i, j = create_random_position()
+            tank.goto(j, i)
     screen.ontimer(spin, 1)

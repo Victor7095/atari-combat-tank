@@ -95,7 +95,6 @@ def create_menu(screen):
                 jogar.append("starting")
             else:
                 jogar[0] = "starting"
-            print(jogar)
 
     def call(a, b):
         credits_(a, b)
