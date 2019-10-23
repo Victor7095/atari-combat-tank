@@ -27,6 +27,10 @@ def create_player(color, x, y):
     tank.penup()
     tank.dx = 0
     tank.dy = 0
+    if color == 'red':
+        tank.right(90)
+    else:
+        tank.left(90)
     tank.goto(x, y)
     return tank
 
