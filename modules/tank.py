@@ -32,6 +32,7 @@ def create_player(color, x, y):
     else:
         tank.left(90)
     tank.goto(x, y)
+    tank.should_respawn = False
     return tank
 
 
@@ -118,6 +119,7 @@ def create_random_position():
 
 def die(screen, tank, ms):
     tank.ms = ms
+    tank.should_respawn = False
 
     def spin():
         tank.left(6)

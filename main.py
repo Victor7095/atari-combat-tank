@@ -101,8 +101,14 @@ def run():
         create_game()
         menu.jogar[0] = "playing"
     if len(menu.jogar) > 0 and menu.jogar[0] == "playing":
-        fire.move_ball(fire.first_player_ball, tank.first_player)
-        fire.move_ball(fire.second_player_ball, tank.second_player)
+        fire.move_ball(fire.first_player_ball,
+                       tank.first_player, tank.second_player)
+        fire.move_ball(fire.second_player_ball,
+                       tank.second_player, tank.first_player)
+        if tank.first_player.should_respawn:
+            tank.die(screen, tank.first_player, 300)
+        if tank.second_player.should_respawn:
+            tank.die(screen, tank.second_player, 300)
         for command in command_history:
             command()
     screen.update()

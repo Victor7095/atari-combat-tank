@@ -42,12 +42,15 @@ def second_player_fire():
     return ball
 
 
-def move_ball(ball, player):
+def move_ball(ball, player, target):
     if ball.isvisible() is True:
         ball.setheading(0)
         ball.right(tank.get_tank_angle(player))
         ball.forward(10)
-
+    x, y = tank.get_tank_position(target)
+    if (x-20 <= ball.xcor() <= x + 20 and y-20 <= ball.ycor() <= y + 20):
+        ball.hideturtle()
+        target.should_respawn = True
     if ball.xcor() >= 360 or ball.xcor() <= -360 or ball.ycor() >= 290 or ball.ycor() <= -290:
         ball.hideturtle()
     return ball
