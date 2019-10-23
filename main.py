@@ -9,7 +9,7 @@ command_history = set()
 
 
 def create_game():
-    command_history = set()
+    command_history.clear()
     print(screen.screensize())
     screen.clear()
     screen.title("Atari Combat Tank")

@@ -1,5 +1,6 @@
 import turtle as tt
 from math import atan2, degrees, cos, sin, pi
+from random import randint
 
 first_player = None
 second_player = None
@@ -82,3 +83,36 @@ def set_tank_position_in_matrix(tank):
     # print("{} {} ({:.2f},{:.2f}) ({:.2f},{:.2f})".format(
     #    tank.heading(), tank.heading()*pi/180, tank.xcor(), tank.ycor(), x, y))
     tank.x, tank.y = int((x+360)/20), int((y+290)/20)
+
+
+def create_random_position():
+    i, j = randint(6, 27), randint(1, 34)
+    adjacent_positions = [[i - 1, j - 1],
+                          [i, j - 1],
+                          [i + 1, j - 1],
+                          [i - 1, j + 1],
+                          [i, j + 1],
+                          [i + 1, j + 1],
+                          [i - 1, j],
+                          [i + 1, j]]
+    print(adjacent_positions)
+    adjacent_positions = [navigation_map[i][j]
+                          for [i, j] in adjacent_positions]
+    while any(adjacent_positions):
+        i, j = randint(6, 27), randint(1, 34)
+        adjacent_positions = navigation_map[i-1:i+2][j-1: j+2]
+    return i*20-280, j*20-360
+
+
+def die(screen, tank, ms):
+    tank.ms = ms
+
+    def spin():
+        tank.left(6)
+        tank.ms -= 1
+        print(tank.ms)
+        if tank.ms > 0:
+            screen.ontimer(spin, 1)
+        else:
+            tank.goto(create_random_position())
+    screen.ontimer(spin, 1)
