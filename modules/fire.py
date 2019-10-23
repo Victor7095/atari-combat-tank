@@ -20,26 +20,26 @@ def create_ball(player):
 
 def first_player_fire():
     ball = first_player_ball
-    if ball.isvisible() is False:
+    if not tank.is_some_tank_respawning() and ball.isvisible() is False:
         ball.goto(tank.get_tank_position(tank.first_player))
         ball._tracer(0)
         ball.setheading(0)
         ball.right(tank.get_tank_angle(tank.first_player))
         ball.forward(35)
         ball.showturtle()
-    return ball
+        return ball
 
 
 def second_player_fire():
     ball = second_player_ball
-    if ball.isvisible() is False:
+    if not tank.is_some_tank_respawning() and ball.isvisible() is False:
         ball.goto(tank.get_tank_position(tank.second_player))
         ball._tracer(0)
         ball.setheading(0)
         ball.right(tank.get_tank_angle(tank.second_player))
         ball.forward(35)
         ball.showturtle()
-    return ball
+        return ball
 
 
 def move_ball(ball, player, target):
@@ -50,7 +50,7 @@ def move_ball(ball, player, target):
     x, y = tank.get_tank_position(target)
     if (x-20 <= ball.xcor() <= x + 20 and y-20 <= ball.ycor() <= y + 20):
         ball.hideturtle()
-        target.should_respawn = True
+        target.is_respawning = True
     if ball.xcor() >= 360 or ball.xcor() <= -360 or ball.ycor() >= 290 or ball.ycor() <= -290:
         ball.hideturtle()
     return ball

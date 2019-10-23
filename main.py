@@ -13,7 +13,7 @@ def create_game():
     print(screen.screensize())
     screen.clear()
     screen.title("Atari Combat Tank")
-    screen.bgcolor("yellowgreen")
+    screen.bgcolor("#88AA00")
     screen.setup(720, 580)  # 720,480 antigo
     screen.tracer(0)
     screen.mode("logo")
@@ -45,7 +45,8 @@ def create_game():
 
 # Comandos primeiro jogador
 def start_first_player_walk():
-    command_history.add(tank.first_player_walk)
+    if not tank.is_some_tank_respawning():
+        command_history.add(tank.first_player_walk)
 
 
 def stop_first_player_walk():
@@ -53,7 +54,8 @@ def stop_first_player_walk():
 
 
 def start_first_player_rotate_left():
-    command_history.add(tank.first_player_rotate_left)
+    if not tank.is_some_tank_respawning():
+        command_history.add(tank.first_player_rotate_left)
 
 
 def stop_first_player_rotate_left():
@@ -61,7 +63,8 @@ def stop_first_player_rotate_left():
 
 
 def start_first_player_rotate_right():
-    command_history.add(tank.first_player_rotate_right)
+    if not tank.is_some_tank_respawning():
+        command_history.add(tank.first_player_rotate_right)
 
 
 def stop_first_player_rotate_right():
@@ -70,7 +73,8 @@ def stop_first_player_rotate_right():
 
 # Comandos segundo jogador
 def start_second_player_walk():
-    command_history.add(tank.second_player_walk)
+    if not tank.is_some_tank_respawning():
+        command_history.add(tank.second_player_walk)
 
 
 def stop_second_player_walk():
@@ -78,7 +82,8 @@ def stop_second_player_walk():
 
 
 def start_second_player_rotate_left():
-    command_history.add(tank.second_player_rotate_left)
+    if not tank.is_some_tank_respawning():
+        command_history.add(tank.second_player_rotate_left)
 
 
 def stop_second_player_rotate_left():
@@ -86,7 +91,8 @@ def stop_second_player_rotate_left():
 
 
 def start_second_player_rotate_right():
-    command_history.add(tank.second_player_rotate_right)
+    if not tank.is_some_tank_respawning():
+        command_history.add(tank.second_player_rotate_right)
 
 
 def stop_second_player_rotate_right():
@@ -105,10 +111,10 @@ def run():
                        tank.first_player, tank.second_player)
         fire.move_ball(fire.second_player_ball,
                        tank.second_player, tank.first_player)
-        if tank.first_player.should_respawn:
-            tank.die(screen, tank.first_player, 300)
-        if tank.second_player.should_respawn:
-            tank.die(screen, tank.second_player, 300)
+        if tank.first_player.is_respawning:
+            tank.die(tank.first_player)
+        if tank.second_player.is_respawning:
+            tank.die(tank.second_player)
         for command in command_history:
             command()
     screen.update()

@@ -32,7 +32,8 @@ def create_player(color, x, y):
     else:
         tank.left(90)
     tank.goto(x, y)
-    tank.should_respawn = False
+    tank.is_respawning = False
+    tank.respawn_time = 150
     return tank
 
 
@@ -117,16 +118,16 @@ def create_random_position():
     return ((28-i)*20)-280, (j*20)-350
 
 
-def die(screen, tank, ms):
-    tank.ms = ms
-    tank.should_respawn = False
+def die(tank):
+    tank.respawn_time -= 1
+    if tank.respawn_time > 0:
+        tank.left(10)
+    else:
+        i, j = create_random_position()
+        tank.goto(j, i)
+        tank.is_respawning = False
+        tank.respawn_time = 150
 
-    def spin():
-        tank.left(6)
-        tank.ms -= 1
-        if tank.ms > 0:
-            screen.ontimer(spin, 1)
-        else:
-            i, j = create_random_position()
-            tank.goto(j, i)
-    screen.ontimer(spin, 1)
+
+def is_some_tank_respawning():
+    return first_player.is_respawning or second_player.is_respawning

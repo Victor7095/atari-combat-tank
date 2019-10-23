@@ -22,7 +22,7 @@ def generate(file):
             if int(lvl[i][j]):
                 block = tt.Turtle()
                 block.shape("square")
-                block.color("white")
+                block.color("#FFAA00")
                 block.shapesize(1, 1)
                 block.penup()
                 block.goto(x, y)
