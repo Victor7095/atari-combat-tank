@@ -1,6 +1,6 @@
 import turtle
 global jogar
-jogar = []
+jogar = ["creating_menu"]
 
 # criando tela de menu
 
@@ -16,7 +16,7 @@ def create_menu(screen):
     screen.mode("logo")
     # desenhando o título
 
-    title = turtle
+    title = turtle.Turtle()
     title.setposition(0, 225)
     title.color("yellow")
     style = ("Fixedsys", 30, "bold")
@@ -25,23 +25,23 @@ def create_menu(screen):
 
     # desenhando opções
 
-    play = turtle.Turtle()
+    play_button = turtle.Turtle()
     play_position_x = 0
     play_position_y = 50
-    play.setposition(play_position_x, play_position_y)
-    play.color("yellow")
+    play_button.setposition(play_position_x, play_position_y)
+    play_button.color("yellow")
     style = ("Fixedsys", 20, "bold")
-    play.write("play game", font=style, align="center")
-    play.hideturtle()
+    play_button.write("play game", font=style, align="center")
+    play_button.hideturtle()
 
-    credit = turtle.Turtle()
+    credits_button = turtle.Turtle()
     credit_position_x = 0
     credit_position_y = 0
-    credit.setposition(credit_position_x, credit_position_y)
-    credit.color("yellow")
+    credits_button.setposition(credit_position_x, credit_position_y)
+    credits_button.color("yellow")
     style = ("Fixedsys", 20, "bold")
-    credit.write("credits", font=style, align="center")
-    credit.hideturtle()
+    credits_button.write("credits", font=style, align="center")
+    credits_button.hideturtle()
 
     exit_game = turtle.Turtle()
     exit_position_x = 0
@@ -56,41 +56,45 @@ def create_menu(screen):
 
     def end_game(a, b):
         if(exit_position_x - 40 <= a <= exit_position_x + 40 and
-                exit_position_y - 40 <= b <= exit_position_y + 40):
+                exit_position_y <= b <= exit_position_y + 30):
             screen.bye()
 
     # lógica do credits
 
     def credits_(a, b):
-        screen.clear()
-        screen.bgcolor("black")
         if(credit_position_x - 40 <= a <= credit_position_x + 40 and
-                credit_position_y - 40 <= b <= credit_position_y + 40):
-            credit.clear()
+                credit_position_y <= b <= credit_position_y + 30):
+            screen.clear()
+            screen.bgcolor("black")
+            credits_button.clear()
+            credits_button.penup()
+
             developers_position_x = 0
             developers_position_y = 70
-            credit.penup()
+            credits_button.setposition(developers_position_x,
+                                       developers_position_y)
 
-            credit.setposition(developers_position_x,
-                               developers_position_y)
-            credit.color("yellow")
             style = ("Fixedsys", 30, "bold")
-            credit.write(
+            credits_button.color("yellow")
+            credits_button.write(
                 "DEVELOPERS\n\n\n", font=style, align="center")
-            credit.hideturtle()
+            credits_button.hideturtle()
+
             names_position_x = 0
             names_position_y = -170
-            credit.setposition(names_position_x, names_position_y)
-            credit.color("yellow")
+            credits_button.setposition(names_position_x, names_position_y)
+
             style = ("Fixedsys", 25, "bold")
-            credit.write(
+            credits_button.write(
                 "Gabriel\n\nVanessa\n\nVictor\n\nVinicius\n\nWilliams",
                 font=style, align="center")
-            credit.hideturtle()
 
     def play(a, b):
-        if(play_position_x - 40 <= a <= play_position_x + 40 and play_position_y - 30 <= b <= play_position_y + 30):
-            jogar.append("on")
+        if(play_position_x - 40 <= a <= play_position_x + 40 and play_position_y <= b <= play_position_y + 30):
+            if len(jogar) == 0:
+                jogar.append("starting")
+            else:
+                jogar[0] = "starting"
             print(jogar)
 
     def call(a, b):

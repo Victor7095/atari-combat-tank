@@ -43,9 +43,6 @@ def create_game():
     screen.onkeypress(fire.second_player_fire, "Down")
 
 
-menu.create_menu(screen)
-
-
 # Comandos primeiro jogador
 def start_first_player_walk():
     command_history.add(tank.first_player_walk)
@@ -97,11 +94,13 @@ def stop_second_player_rotate_right():
 
 
 def run():
-    if len(menu.jogar) > 0 and menu.jogar[0] == "on":
+    if len(menu.jogar) > 0 and menu.jogar[0] == "creating_menu":
+        menu.create_menu(screen)
+        menu.jogar[0] = "waiting"
+    if len(menu.jogar) > 0 and menu.jogar[0] == "starting":
         create_game()
-
-        menu.jogar[0] = "jogando"
-    if len(menu.jogar) > 0 and menu.jogar[0] == "jogando":
+        menu.jogar[0] = "playing"
+    if len(menu.jogar) > 0 and menu.jogar[0] == "playing":
         fire.move_ball(fire.first_player_ball, tank.first_player)
         fire.move_ball(fire.second_player_ball, tank.second_player)
         for command in command_history:
