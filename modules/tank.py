@@ -33,13 +33,18 @@ def create_player(color, x, y):
         tank.left(90)
     tank.goto(x, y)
     tank.is_respawning = False
-    tank.respawn_time = 150
+    tank.respawn_time = 100
+    tank.score = 0
     return tank
 
 
 def first_player_walk():
     player = first_player
     set_tank_position_in_matrix(player)
+    print(player.x, player.y, player.x2, player.y2, player.x3, player.y3)
+    """if not (navigation_map[28-player.y][player.x] and
+            navigation_map[28-player.y2][player.x2] and
+            navigation_map[28-player.y3][player.x3]):"""
     if not navigation_map[28-player.y][player.x]:
         player.forward(2)
     else:
@@ -84,11 +89,18 @@ def get_tank_position(tank):
 
 
 def set_tank_position_in_matrix(tank):
-    x, y = [20 * sin(tank.heading()*pi/180)+tank.xcor(),
-            20 * cos(tank.heading()*pi/180)+tank.ycor()]
+    alpha = tank.heading()
+    x, y = [20 * sin(alpha*pi/180)+tank.xcor(),
+            20 * cos(alpha*pi/180)+tank.ycor()]
+    x2, y2 = [20 * sin((alpha+45)*pi/180)+tank.xcor(),
+              20 * cos((alpha+45)*pi/180)+tank.ycor()]
+    x3, y3 = [20 * sin((alpha-45)*pi/180)+tank.xcor(),
+              20 * cos((alpha-45)*pi/180)+tank.ycor()]
     # print("{} {} ({:.2f},{:.2f}) ({:.2f},{:.2f})".format(
     #    tank.heading(), tank.heading()*pi/180, tank.xcor(), tank.ycor(), x, y))
     tank.x, tank.y = int((x+360)/20), int((y+290)/20)
+    tank.x2, tank.y2 = int((x2+360)/20), int((y2+290)/20)
+    tank.x3, tank.y3 = int((x3+360)/20), int((y3+290)/20)
 
 
 def create_random_position():
@@ -121,12 +133,13 @@ def create_random_position():
 def die(tank):
     tank.respawn_time -= 1
     if tank.respawn_time > 0:
-        tank.left(10)
+        tank.left(15)
     else:
         i, j = create_random_position()
         tank.goto(j, i)
         tank.is_respawning = False
-        tank.respawn_time = 150
+        tank.respawn_time = 100
+        tank.score += 1
 
 
 def is_some_tank_respawning():

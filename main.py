@@ -8,8 +8,6 @@ screen = tt.Screen()
 command_history = set()
 hud1 = None
 hud2 = None
-score_1 = 0
-score_2 = 0
 
 
 def create_game():
@@ -29,7 +27,7 @@ def create_game():
     hud1.penup()
     hud1.hideturtle()
     hud1.goto(-250, 200)
-    hud1.write("0", align="center", font=("Press Start 2P",48,"normal") )
+    hud1.write("0", align="center", font=("Press Start 2P", 48, "normal"))
 
     hud2 = tt.Turtle()
     hud2.speed(0)
@@ -38,14 +36,15 @@ def create_game():
     hud2.penup()
     hud2.hideturtle()
     hud2.goto(250, 200)
-    hud2.write("0", align="center", font=("Press Start 2P",48,"normal") )
+    hud2.write("0", align="center", font=("Press Start 2P", 48, "normal"))
 
     tank.register_tank_shape(screen)
     tank.first_player = tank.create_player("red", -280, -50)
     fire.first_player_ball = fire.create_ball(tank.first_player)
     tank.second_player = tank.create_player("blue", 280, -50)
     fire.second_player_ball = fire.create_ball(tank.second_player)
-    tank.navigation_map = level.generate("level1.txt")
+
+    tank.navigation_map = fire.navigation_map = level.generate("level1.txt")
 
     screen.listen()
     screen.onkeypress(start_first_player_walk, "w")
@@ -126,31 +125,43 @@ def stop_second_player_rotate_right():
 def run():
     global hud1
     global hud2
-    global score_1
-    global score_2
+
+    # Renderização do menu
     if len(menu.jogar) > 0 and menu.jogar[0] == "creating_menu":
         menu.create_menu(screen)
         menu.jogar[0] = "waiting"
+
+    # Renderização do mapa
     if len(menu.jogar) > 0 and menu.jogar[0] == "starting":
         hud1, hud2 = create_game()
         menu.jogar[0] = "playing"
+
+    # Jogo em execução
     if len(menu.jogar) > 0 and menu.jogar[0] == "playing":
+        # Movimentação das balas
         fire.move_ball(fire.first_player_ball,
                        tank.first_player, tank.second_player)
         fire.move_ball(fire.second_player_ball,
                        tank.second_player, tank.first_player)
+
+        # Renascimento do primeiro jogador
         if tank.first_player.is_respawning:
             tank.die(tank.first_player)
-            score_2 += 1
-            hud2.clear()
-            hud2.write("{}".format(score_2), align="center", font=("Press Start 2P",48,"normal") )
+        hud2.clear()
+        hud2.write("{}".format(tank.second_player.score),
+                   align="center", font=("Press Start 2P", 48, "normal"))
+
+        # Renascimento do segundo jogador
         if tank.second_player.is_respawning:
             tank.die(tank.second_player)
-            score_1 += 1
-            hud1.clear()
-            hud1.write("{}".format(score_1), align="center", font=("Press Start 2P",48,"normal") )
+        hud1.clear()
+        hud1.write("{}".format(tank.first_player.score),
+                   align="center", font=("Press Start 2P", 48, "normal"))
+
+        # Executando movimentos pressionados
         for command in command_history:
             command()
+
     screen.update()
     screen.ontimer(run, 1)
 

@@ -1,8 +1,10 @@
 import turtle as tt
 import modules.tank as tank
+from math import atan2, degrees, cos, sin, pi
 
 first_player_ball = None
 second_player_ball = None
+navigation_map = []
 
 
 def create_ball(player):
@@ -46,7 +48,14 @@ def move_ball(ball, player, target):
     if ball.isvisible() is True:
         ball.setheading(0)
         ball.right(tank.get_tank_angle(player))
-        ball.forward(10)
+        ball_x, ball_y = [10 * sin(ball.heading()*pi/180)+ball.xcor(),
+                          10 * cos(ball.heading()*pi/180)+ball.ycor()]
+        ball_x, ball_y = int((ball_x+360)/20), int((ball_y+290)/20)
+        if not navigation_map[28-ball_y][ball_x]:
+            ball.forward(15)
+        else:
+            ball.hideturtle()
+
     x, y = tank.get_tank_position(target)
     if (x-20 <= ball.xcor() <= x + 20 and y-20 <= ball.ycor() <= y + 20):
         ball.hideturtle()
