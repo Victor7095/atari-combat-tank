@@ -41,14 +41,12 @@ def create_player(color, x, y):
 def first_player_walk():
     player = first_player
     set_tank_position_in_matrix(player)
-    print(player.x, player.y, player.x2, player.y2, player.x3, player.y3)
-    """if not (navigation_map[28-player.y][player.x] and
-            navigation_map[28-player.y2][player.x2] and
-            navigation_map[28-player.y3][player.x3]):"""
-    if not navigation_map[28-player.y][player.x]:
-        player.forward(2)
+    if (navigation_map[28-player.y][player.x] or
+            navigation_map[28-player.y2][player.x2] or
+            navigation_map[28-player.y3][player.x3]):
+        player.backward(5)
     else:
-        player.backward(10)
+        player.forward(2)
 
 
 def first_player_rotate_left():
@@ -90,12 +88,12 @@ def get_tank_position(tank):
 
 def set_tank_position_in_matrix(tank):
     alpha = tank.heading()
-    x, y = [20 * sin(alpha*pi/180)+tank.xcor(),
-            20 * cos(alpha*pi/180)+tank.ycor()]
-    x2, y2 = [20 * sin((alpha+45)*pi/180)+tank.xcor(),
-              20 * cos((alpha+45)*pi/180)+tank.ycor()]
-    x3, y3 = [20 * sin((alpha-45)*pi/180)+tank.xcor(),
-              20 * cos((alpha-45)*pi/180)+tank.ycor()]
+    x, y = [25 * sin(alpha*pi/180)+tank.xcor(),
+            25 * cos(alpha*pi/180)+tank.ycor()]
+    x2, y2 = [15 * sin((alpha+45)*pi/180)+tank.xcor(),
+              15 * cos((alpha+45)*pi/180)+tank.ycor()]
+    x3, y3 = [15 * sin((alpha-45)*pi/180)+tank.xcor(),
+              15 * cos((alpha-45)*pi/180)+tank.ycor()]
     # print("{} {} ({:.2f},{:.2f}) ({:.2f},{:.2f})".format(
     #    tank.heading(), tank.heading()*pi/180, tank.xcor(), tank.ycor(), x, y))
     tank.x, tank.y = int((x+360)/20), int((y+290)/20)
@@ -139,7 +137,10 @@ def die(tank):
         tank.goto(j, i)
         tank.is_respawning = False
         tank.respawn_time = 100
-        tank.score += 1
+        if tank == first_player:
+            second_player.score += 1
+        if tank == second_player:
+            first_player.score += 1
 
 
 def is_some_tank_respawning():

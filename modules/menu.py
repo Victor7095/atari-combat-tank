@@ -14,8 +14,8 @@ def create_menu(screen):
     screen.setup(720, 580)
     screen.tracer(0)
     screen.mode("logo")
-    # desenhando o título
 
+    # desenhando o título
     title = turtle.Turtle()
     title.setposition(0, 225)
     title.color("yellow")
@@ -24,7 +24,6 @@ def create_menu(screen):
     title.hideturtle()
 
     # desenhando opções
-
     play_button = turtle.Turtle()
     play_position_x = 0
     play_position_y = 50
@@ -53,14 +52,12 @@ def create_menu(screen):
     exit_game.hideturtle()
 
     # lógica do exit
-
     def end_game(a, b):
         if(exit_position_x - 40 <= a <= exit_position_x + 40 and
                 exit_position_y <= b <= exit_position_y + 30):
             screen.bye()
 
     # lógica do credits
-
     def credits_(a, b):
         if(credit_position_x - 40 <= a <= credit_position_x + 40 and
                 credit_position_y <= b <= credit_position_y + 30):

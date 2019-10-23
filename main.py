@@ -3,8 +3,11 @@ import modules.tank as tank
 import modules.level as level
 import modules.fire as fire
 import modules.menu as menu
+from sys import argv
+from time import sleep
 
 screen = tt.Screen()
+map_name = argv[1]
 command_history = set()
 hud1 = None
 hud2 = None
@@ -44,7 +47,7 @@ def create_game():
     tank.second_player = tank.create_player("blue", 280, -50)
     fire.second_player_ball = fire.create_ball(tank.second_player)
 
-    tank.navigation_map = fire.navigation_map = level.generate("level1.txt")
+    tank.navigation_map = fire.navigation_map = level.generate(map_name)
 
     screen.listen()
     screen.onkeypress(start_first_player_walk, "w")
@@ -64,6 +67,19 @@ def create_game():
     screen.onkeypress(fire.second_player_fire, "Down")
 
     return hud1, hud2
+
+
+def game_over(player, color):
+    game_over_lbl = tt.Turtle()
+    game_over_lbl.speed(0)
+    game_over_lbl.shape("square")
+    game_over_lbl.color(color)
+    game_over_lbl.penup()
+    game_over_lbl.hideturtle()
+    game_over_lbl.goto(0, 0)
+    game_over_lbl.write("{} WIN!".format(player), align="center", font=(
+        "Press Start 2P", 48, "normal"))
+    sleep(5)
 
 
 # Comandos primeiro jogador
@@ -157,6 +173,17 @@ def run():
         hud1.clear()
         hud1.write("{}".format(tank.first_player.score),
                    align="center", font=("Press Start 2P", 48, "normal"))
+
+        # Game Over
+        if tank.first_player.score == 1 or tank.second_player.score == 1:
+            if tank.first_player.score == 1:
+                winner = "Player 1"
+                color = "red"
+            if tank.second_player.score == 1:
+                winner = "Player 2"
+                color = "blue"
+            game_over(winner, color)
+            menu.jogar[0] = "creating_menu"
 
         # Executando movimentos pressionados
         for command in command_history:
